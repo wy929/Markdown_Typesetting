@@ -1,6 +1,5 @@
 import re
-file_path = 'E:\\Documents\\Github\\Markdown_Typesetting\\Project01\\file\\demo.md'
-file_path2 = 'E:\\Documents\\Github\\Markdown_Typesetting\\Project01\\file\\demo01.md'
+
 def titleRank(line):
     str1 = '#'
     counter = 0
@@ -26,10 +25,10 @@ def isTitle(lines):
     rank = [0]
     preRank = 0
     for i in range(len(titleIndex)):
-        print(i)
-        print('preRank = ', preRank)
+        # print(i)
+        # print('preRank = ', preRank)
         tempRank = titleIndex[i][1] # rank
-        print('tempRank = ',tempRank)
+        # print('tempRank = ',tempRank)
         if preRank == tempRank:
             rank[tempRank] += 1
         elif preRank < tempRank:
@@ -44,8 +43,8 @@ def isTitle(lines):
             rank[tempRank] += 1
             preRank = tempRank
 
-        print('preRank = ', preRank)
-        print(rank)
+        # print('preRank = ', preRank)
+        # print(rank)
         strT = ''
         for k in range(len(rank)):
             if rank[k] == 0:
@@ -54,7 +53,7 @@ def isTitle(lines):
                 str1 = str(rank[k])
                 strT = strT + '.' +str1
         strT = 't' + strT[1:]
-        print(strT)
+        # print(strT)
         titleIndex[i].append(strT)
 
     return  titleIndex
@@ -65,7 +64,7 @@ def replaceTitle(lines, titleIndex, fontName='Times New Roman'):
         str2 = lines[titleIndex[i][0]]
         title = str2[(titleIndex[i][1]+1):-1]
         title = '#'*(titleIndex[i][1]) + ' ' + str1[:9] + titleIndex[i][2] + str1[9:23] + fontName + str1[23:25] + title + str1[25:]+'\n'
-        print(title)
+        # print(title)
         lines[titleIndex[i][0]] = title
     return lines
 
@@ -93,13 +92,13 @@ def replaceChart(lines, type='fig'):
             lines[i] = chartName
     return lines
 
-def isNormal(lines):
+def isBody(lines):
     """
 
     :param lines: list of markdown file in lines
     :return: normalIndex [index,]
     """
-    normalIndex = []
+    bodyIndex = []
     FLAG = 0     # 0 is do, -1 is continue
     mathFLAG = 0 # 0 is do, -1 is continue
     codeFLAG = 0 # 0 is do, -1 is continue
@@ -132,31 +131,14 @@ def isNormal(lines):
                 FLAG = -1
 
         if (FLAG == 0) & (codeFLAG == 0) & (mathFLAG == 0) & (temp == 0):
-            normalIndex.append(i)
-            print(lines[i])
+            bodyIndex.append(i)
+            # print(lines[i])
         FLAG = 0
-    return normalIndex
+    return bodyIndex
 
-def replaceNormal(lines, normalIndex, fontName='Cambria'):
+def replaceBody(lines, bodyIndex, fontName='Cambria'):
     str1 = '<font face=""></font>\n'
-    for i in range(len(normalIndex)):
-        lines[normalIndex[i]] = str1[:12] + fontName + str1[12:14] + lines[normalIndex[i]][:-1] + str1[14:]
+    for i in range(len(bodyIndex)):
+        lines[bodyIndex[i]] = str1[:12] + fontName + str1[12:14] + lines[bodyIndex[i]][:-1] + str1[14:]
 
-def test01():
-    # codeFLAG = 0
-    # mathFLAG = 0
-    # print((codeFLAG == -1) | (mathFLAG == -1))
-    str1 = '$$\n'
-    print(str1[0:2])
-def test02():
-    lines = []
-    with open(file_path, 'r',encoding='utf-8') as f:
-        lines = f.readlines()
-        normalIndex = isNormal(lines)
-        replaceNormal(lines,normalIndex)
-        # print(lines)
-    with open(file_path2, 'w',encoding='utf-8') as f:
-         f.writelines(lines)
-if __name__ == '__main__':
-    test01()
 

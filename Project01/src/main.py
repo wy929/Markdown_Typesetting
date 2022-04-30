@@ -2,27 +2,33 @@ import mdTypesetting as md
 import os.path as path
 
 # change the file_name and file_path
-file_name = 'report.md'
-file_path = 'E:\\Documents\\Github\\Markdown_Typesetting\\Project01\\file\\'
+file_name = 'Alice.md'
+file_path = '../usecase/'
 
 
-def tp1(file_path_org, file_path_new):
-    lines = []
-    with open(file_path_org, 'r',encoding='utf-8') as f:
+def case1(file_path_org, file_path_new, titleFont='Times New Roman', bodyFont='Cambria'):
+    """
+    Reformatting the source file includes: replacing the body font, changing the title, and adding captions to charts
+    :param file_path_org: input path
+    :param file_path_new: output path
+    :param titleFont:
+    :param bodyFont:
+    :return:
+    """
+    with open(file_path_org, 'r', encoding='utf-8') as f:
         lines = f.readlines()
         titleIndex = md.isTitle(lines)
-        print(titleIndex)
         md.replaceChart(lines)
         md.replaceChart(lines, type='tab')
-        md.replaceTitle(lines, titleIndex)
-        normalIndex = md.isNormal(lines)
-        md.replaceNormal(lines,normalIndex)
-    with open(file_path_new, 'w',encoding='utf-8') as f:
+        md.replaceTitle(lines, titleIndex, titleFont)
+        bodyIndex = md.isBody(lines)
+        md.replaceBody(lines, bodyIndex, bodyFont)
+    with open(file_path_new, 'w', encoding='utf-8') as f:
          f.writelines(lines)
 
 if __name__ == '__main__':
-    print(file_name[:-3])
     file_path_org = path.join(file_path, file_name)
     file_name_new = file_name[:-3] + '_new' + '.md'
     fiel_path_new = path.join(file_path,file_name_new)
-    tp1(file_path_org, fiel_path_new)
+    case1(file_path_org, fiel_path_new)
+    print('Success!')
