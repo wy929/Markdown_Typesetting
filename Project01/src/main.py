@@ -3,7 +3,7 @@ import os.path as path
 
 # change the file_name and file_path
 file_name = 'report.md'
-file_path = 'E:\Documents\Github\DDL\CAN202\Report'
+file_path = 'E:\Documents\Github\DDL\MEC208\LAB2\Report'
 
 
 def case1(file_path_org, file_path_new, titleFont='Times New Roman', bodyFont='Cambria'):

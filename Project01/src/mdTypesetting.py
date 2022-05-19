@@ -102,7 +102,7 @@ def isBody(lines):
     FLAG = 0     # 0 is do, -1 is continue
     mathFLAG = 0 # 0 is do, -1 is continue
     codeFLAG = 0 # 0 is do, -1 is continue
-    marks = ['|', '<FIG>', '<TAB>', '#', '<img', '![image', '<center']
+    marks = ['|', '<FIG>', '<TAB>', '#', '<img', '![image', '<center','---', '<font', '![img]']
     for i in range(len(lines)):
         temp = 0
         if (codeFLAG == -1) | (mathFLAG == -1): temp = -1
